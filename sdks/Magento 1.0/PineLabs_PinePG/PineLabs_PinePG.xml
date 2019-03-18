@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <PineLabs_PinePG>
+            <active>true</active>
+            <codePool>local</codePool>
+        </PineLabs_PinePG>
+ 
+        <depends>
+        	<Mage_Payment />
+      	</depends>
+    </modules>
+</config>

@@ -1,0 +1,43 @@
+<?php
+
+   $secret_key     = Mage::helper('PinePG')->getConfigData('secret_key');
+	
+    $dictionary         = $this->getRequestparams();
+	
+	
+	/*foreach($dictionary as $dictionary_value)
+	{
+		echo "$dictionary_value </br>";
+	}*/
+	
+	//action="https://uat.pinepg.in/PinePGRedirect/index"
+
+$standard = Mage::getModel( 'PinePG/standard' );
+$SetAction= $standard->getPinePGUrl();    
+$secret_key     = Mage::helper('PinePG')->Hex2String($secret_key);
+$hash           = Mage::helper('PinePG')->getHash($dictionary,$secret_key);
+$dictionary['ppc_DIA_SECRET_TYPE']="SHA256";
+$dictionary['ppc_DIA_SECRET'] = $hash;
+$session = Mage::getSingleton("core/session",  array("name"=>"frontend"));
+$session->setData($dictionary['ppc_UniqueMerchantTxnID'], $hash);
+if(Mage::helper('PinePG')->getConfigData('debug')) {
+    Mage::log("Request:- ".print_r($dictionary, true), Zend_Log::DEBUG, 'PinePG.log', true);
+	}
+?>
+
+
+<form name="PinePGform" method="post" action="<?php echo $SetAction?>">
+     <?php foreach($dictionary as $dictionary_name => $dictionary_value):?>
+	 <input type ="hidden" name="<?php echo $dictionary_name?>" value="<?php echo $dictionary_value; ?>" />
+     <?php endforeach;?>
+   </form>
+ <script type="text/javascript">
+document.PinePGform.submit();
+ </script>
+
+
+
+   
+
+
+
