@@ -27,6 +27,10 @@ Opencart (sdks\Opencart.zip)
 
 NodeJs (sdks\PinePGNodejsTestingKit.zip)
 
+Woocommerce (sdk\edge-pinepg-woocommerce-v1.0.zip)
+
+Android (sdk\Android.zip)
+
 # Test Data
 
 # Purchase model test data
